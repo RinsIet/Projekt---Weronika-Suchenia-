@@ -4,17 +4,21 @@ using UnityEngine;
 
 public class teleporter : MonoBehaviour {
 	public GameObject destination;
+    public string transportingTag = "Player";
 
 	void OnTriggerEnter(Collider collider)
 	{
-		if (collider.CompareTag ("Player") || collider.gameObject.layer == 1)
+		if (collider.CompareTag (transportingTag) || collider.gameObject.layer == 1)
 		{
 
 			Vector3 targetPosition = destination.transform.position;
 			targetPosition += destination.transform.forward * 2;
 			collider.transform.position = targetPosition;
 
-			destination.GetComponent<AudioSource> ().Play ();
+            if (destination.GetComponent<AudioSource>())
+            {
+                destination.GetComponent<AudioSource>().Play();
+            }
 		}
 
 	}
